@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.db.models import Q
@@ -7,7 +6,11 @@ from .models import Post, Category
 
 def index(request):
     template = 'blog/index.html'
-    posts = Post.objects.select_related('author', 'location', 'category').filter(
+    posts = Post.objects.select_related(
+        'author',
+        'location',
+        'category'
+        ).filter(
         is_published=True,
         pub_date__lte=timezone.now(),
         category__is_published=True
@@ -43,7 +46,11 @@ def category_posts(request, category_slug):
         slug=category_slug,
         is_published=True
     )
-    posts = Post.objects.select_related('author', 'location', 'category').filter(
+    posts = Post.objects.select_related(
+        'author',
+        'location',
+        'category'
+        ).filter(
         category=category,
         is_published=True,
         pub_date__lte=timezone.now()
