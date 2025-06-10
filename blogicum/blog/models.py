@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-import datetime
 
 User = get_user_model()
 
@@ -14,7 +13,7 @@ class BaseModel(models.Model):
     created_at = models.DateTimeField('Добавлено', auto_now_add=True)
 
     class Meta:
-        abstract = True 
+        abstract = True
 
 
 class Category(BaseModel):
