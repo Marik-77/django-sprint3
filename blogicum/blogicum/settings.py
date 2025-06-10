@@ -74,7 +74,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru-ru'  # Исправьте на строчные буквы и дефис
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
