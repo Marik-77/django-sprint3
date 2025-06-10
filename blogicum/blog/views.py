@@ -10,7 +10,7 @@ def index(request):
         'author',
         'location',
         'category'
-        ).filter(
+    ).filter(
         is_published=True,
         pub_date__lte=timezone.now(),
         category__is_published=True
@@ -50,7 +50,7 @@ def category_posts(request, category_slug):
         'author',
         'location',
         'category'
-        ).filter(
+    ).filter(
         category=category,
         is_published=True,
         pub_date__lte=timezone.now()
