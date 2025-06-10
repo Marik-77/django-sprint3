@@ -14,8 +14,6 @@ def index(request):
         is_published=True,
         pub_date__lte=timezone.now(),
         category__is_published=True
-    ).filter(
-        Q(location__isnull=True) | Q(location__is_published=True)
     ).order_by('-pub_date')[:5]
     context = {
         'posts': posts,
@@ -30,8 +28,6 @@ def post_detail(request, id):
             is_published=True,
             pub_date__lte=timezone.now(),
             category__is_published=True
-        ).filter(
-            Q(location__isnull=True) | Q(location__is_published=True)
         ),
         pk=id
     )
