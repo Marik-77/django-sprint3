@@ -54,7 +54,7 @@ def category_posts(request, category_slug):
         category=category,
         is_published=True,
         pub_date__lte=timezone.now()
-    ).order_by('-pub_date') 
+    ).order_by('-pub_date')
     context = {
         'category': category,
         'posts': posts,
