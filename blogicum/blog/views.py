@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-from .models import Post, Category
+
+from .constants import MAIN_PAGE_POSTS_COUNT
+from .models import Category, Post
 
 
 def index(request):
@@ -13,7 +15,7 @@ def index(request):
         is_published=True,
         pub_date__lte=timezone.now(),
         category__is_published=True
-    ).order_by('-pub_date')[:5]
+    ).order_by('-pub_date')[:MAIN_PAGE_POSTS_COUNT]
     context = {
         'posts': posts,
     }
@@ -23,12 +25,11 @@ def index(request):
 def post_detail(request, id):
     template = 'blog/detail.html'
     post = get_object_or_404(
-        Post.objects.select_related('author', 'location', 'category').filter(
-            is_published=True,
-            pub_date__lte=timezone.now(),
-            category__is_published=True
-        ),
-        pk=id
+        Post,
+        pk=id,
+        is_published=True,
+        pub_date__lte=timezone.now(),
+        category__is_published=True
     )
     context = {'post': post}
     return render(request, template, context)
@@ -41,12 +42,11 @@ def category_posts(request, category_slug):
         slug=category_slug,
         is_published=True
     )
-    posts = Post.objects.select_related(
+    posts = category.posts.select_related(
         'author',
         'location',
         'category'
     ).filter(
-        category=category,
         is_published=True,
         pub_date__lte=timezone.now()
     ).order_by('-pub_date')
