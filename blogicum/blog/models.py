@@ -16,7 +16,7 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
-        default_related_name = '%(class)s_set' 
+        default_related_name = '%(class)s_set'
 
 
 class Category(BaseModel):
